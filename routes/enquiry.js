@@ -4,7 +4,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { Employee } = require("../models/employee");
 const { Enquiry } = require("../models/enquiry");
+const { isLoggedIn } = require("../middleware/auth");
 const enquiryRouter = express.Router();
+
+
 
 // Public form submission to enquiry
 enquiryRouter.post('/add', async (req, res) => {
@@ -33,23 +36,6 @@ enquiryRouter.post('/add', async (req, res) => {
     }
 });
 
-const isLoggedIn = (req, res, next) => {
-
-    const token = req.headers.authorization;
-
-    if (!token) {
-        return res.status(401).json({ message: 'Unauthorized' });
-    }
-
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(401).json({ message: 'Invalid token' });
-        }
-
-        req.employeeId = decoded.employeeId;
-        next();
-    });
-};
 
 // Get all query which are unclaimed only, before claiming
 
