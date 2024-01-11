@@ -24,7 +24,7 @@ app.use("/enquiry", enquiryRouter)
 
 
 app.get('/', (req, res) => {
-    res.send("Hello Welcome to Hompage. This is help API.")
+    res.send("Hello Welcome to Hompage. PLease use postman to test apis.")
 });
 
 
